@@ -1,0 +1,8 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="admin-page-head"><div><h2>💐 Gullar</h2><p>Mahsulotlarni qo‘shing, tahrirlang va o‘chiring.</p></div><a class="btn btn-flower" href="{% url 'product_create' %}">+ Gul qo‘shish</a></div>
+{% if form %}<div class="admin-card form-card mb-4"><h4>{% if model.pk %}Gulni tahrirlash{% else %}Yangi gul{% endif %}</h4><form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.non_field_errors }}{% for field in form %}<div class="form-group"><label>{{ field.label }}</label>{{ field }}{% if field.errors %}<div class="text-danger">{{ field.errors }}</div>{% endif %}</div>{% endfor %}<button class="btn btn-flower" type="submit">Saqlash</button> <a class="btn btn-light" href="{% url 'product_list' %}">Bekor qilish</a></form></div>{% endif %}
+<div class="admin-card"><div class="table-responsive"><table class="table"><thead><tr><th>Rasm</th><th>Gul</th><th>Kategoriya</th><th>Narx</th><th>Amallar</th></tr></thead><tbody>
+{% for product in products %}<tr><td>{% if product.image %}<img class="product-thumb" src="{{ product.image.url }}">{% else %}🌸{% endif %}</td><td><strong>{{ product.title }}</strong><br><small>{{ product.description|truncatechars:60 }}</small></td><td>{{ product.category }}</td><td>{{ product.price }} so‘m</td><td><a class="btn btn-sm btn-outline-primary" href="{% url 'edit_product' product.id %}">Tahrirlash</a> <a class="btn btn-sm btn-outline-danger" href="{% url 'product_delete' product.id %}" onclick="return confirm('Gulni o‘chirasizmi?')">O‘chirish</a></td></tr>{% empty %}<tr><td colspan="5" class="text-center text-muted py-4">Hozircha gul yo‘q.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Gradient Stat Cards */
+    .stat-card {
+        border-radius: 16px;
+        padding: 22px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+        margin-bottom: 20px;
+        transition: transform 0.2s ease-in-out;
+    }
+    .stat-card:hover {
+        transform: translateY(-4px);
+    }
+    .card-purple { background: linear-gradient(135deg, #868eef 0%, #6b53ff 100%); }
+    .card-blue { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); }
+    .card-pink { background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%); }
+    .card-green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+
+    .stat-card h2 { font-size: 36px; font-weight: 700; margin: 0; }
+    .stat-card p { margin: 0; font-size: 15px; opacity: 0.9; }
+    .stat-card i { font-size: 45px; opacity: 0.8; }
+
+    /* Chart Containers */
+    .chart-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        margin-bottom: 25px;
+    }
+    .chart-card h4 { font-size: 18px; font-weight: 700; color: #2b3674; margin-bottom: 20px; }
+</style>
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="{% url 'category_list' %}" class="text-decoration-none">
+            <div class="stat-card card-purple">
+                <div>
+                    <h2>{{ counts.categories|default:"0" }}</h2>
+                    <p>Kategoriyalar</p>
+                </div>
+                <i class="zmdi zmdi-folder"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{% url 'product_list' %}" class="text-decoration-none">
+            <div class="stat-card card-blue">
+                <div>
+                    <h2>{{ counts.products|default:"0" }}</h2>
+                    <p>Gullar (Mahsulotlar)</p>
+                </div>
+                <i class="zmdi zmdi-flower"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{% url 'order_list' %}" class="text-decoration-none">
+            <div class="stat-card card-pink">
+                <div>
+                    <h2>{{ counts.orders|default:"0" }}</h2>
+                    <p>Buyurtmalar</p>
+                </div>
+                <i class="zmdi zmdi-shopping-cart"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{% url 'user_list' %}" class="text-decoration-none">
+            <div class="stat-card card-green">
+                <div>
+                    <h2>{{ counts.customers|default:"0" }}</h2>
+                    <p>Mijozlar</p>
+                </div>
+                <i class="zmdi zmdi-account"></i>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="chart-card">
+            <h4>📊 Oylik Savdo Statistikasi</h4>
+            <div style="height: 260px;">
+                <canvas id="salesLineChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="chart-card">
+            <h4>🌸 Kategoriyalar va Gullar</h4>
+            <div style="height: 260px;">
+                <canvas id="categoryBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-card">
+    <h4>🛍 So'nggi Buyurtmalar Jadvali</h4>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr style="color: #a3b2c7;">
+                    <th>ID</th>
+                    <th>Mijoz</th>
+                    <th>Gul Nomi</th>
+                    <th>Narxi</th>
+                    <th>Soni</th>
+                    <th>Holat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if orders %}
+                    {% for row in orders %}
+                    <tr>
+                        <td>#{{ row.id }}</td>
+                        <td>{{ row.user.username }}</td>
+                        <td>{{ row.product.name }}</td>
+                        <td>${{ row.total_price }}</td>
+                        <td>{{ row.quantity }} ta</td>
+                        <td><span class="badge badge-success px-3 py-2">{{ row.status|default:"Bajarildi" }}</span></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            📦 Hozircha hech qanday buyurtma mavjud emas.
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Line Chart (Silliq ko'k grafik)
+    var ctxLine = document.getElementById("salesLineChart");
+    if (ctxLine) {
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ["Yan", "Fev", "Mar", "Apr", "May", "Iyun", "Iyul"],
+                datasets: [{
+                    label: "Savdolar ($)",
+                    data: [150, 300, 220, 450, 380, 520, 600],
+                    borderColor: '#0072ff',
+                    backgroundColor: 'rgba(0, 114, 255, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+
+    // 2. Bar Chart (Ustunli grafik)
+    var ctxBar = document.getElementById("categoryBarChart");
+    if (ctxBar) {
+        var categoryNames = [];
+        var productCounts = [];
+
+        {% for item in categories_products %}
+            categoryNames.push("{{ item.category }}");
+            productCounts.push({{ item.product }});
+        {% endfor %}
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: categoryNames.length ? categoryNames : ["Atirgullar", "Lolalar", "Xonaki", "Guldastalar"],
+                datasets: [{
+                    label: 'Gullar Soni',
+                    data: productCounts.length ? productCounts : [12, 19, 7, 15],
+                    backgroundColor: ['#ff512f', '#00c6ff', '#ffb300', '#38ef7d', '#868eef']
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="admin-page-head"><div><h2>🛒 Buyurtmalar</h2><p>Kelgan buyurtmalarni ko‘ring.</p></div><a class="btn btn-flower" href="{% url 'order_create' %}">+ Buyurtma qo‘shish</a></div>
+<div class="admin-card"><div class="table-responsive"><table class="table"><thead><tr><th>ID</th><th>Mijoz</th><th>Telefon</th><th>Sana</th></tr></thead><tbody>
+{% for order in orders %}<tr><td>#{{ order.id }}</td><td>{{ order.customer }}</td><td>{{ order.customer.phone_number }}</td><td>{{ order.created_at|date:'d.m.Y H:i' }}</td></tr>{% empty %}<tr><td colspan="4" class="text-center text-muted py-4">Hozircha buyurtma mavjud emas.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}
