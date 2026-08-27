@@ -6,12 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-my-secret-key-flower-project')
 
-# Serverda False, lokal kompyuterda True ishlaydi
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['*']
 
-# Render domeni
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -31,7 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serverda statik fayllarni ko'rsatish uchun
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,7 +56,6 @@ TEMPLATES = [
     },
 ]
 
-# Database sozlamalari (Serverda PostgreSQL, lokalda SQLite)
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -85,7 +82,8 @@ WHITENOISE_MANIFEST_STRICT = False
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Telegram Bot sozlamalari
+os.makedirs(MEDIA_ROOT, exist_ok=True)
+
 BOT_TOKEN = "8390839432:AAF7_NvbC_V4UWkY6MmzQdMZx0XBzQ8aE8k"
 TELEGRAM_CHAT_ID = "1126596787"
 

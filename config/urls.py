@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
-from django.conf.urls.static import static
+from django.views.static import serve
 from core import views
 
 urlpatterns = [
@@ -34,10 +34,6 @@ urlpatterns = [
     path('buy/<int:product_id>/', views.buy_now, name='buy_now'),
     path('checkout/', views.checkout_api, name='checkout_api'),
     path('add-comment/', views.add_comment, name='add_comment'),
+
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
-
-# Media fayllarini serverda har doim ko'rsatish uchun
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
