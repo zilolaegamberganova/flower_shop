@@ -76,13 +76,16 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+WHITENOISE_MANIFEST_STRICT = False
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Telegram Bot sozlamalari
 BOT_TOKEN = "8390839432:AAF7_NvbC_V4UWkY6MmzQdMZx0XBzQ8aE8k"
 TELEGRAM_CHAT_ID = "1126596787"
 
