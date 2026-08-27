@@ -1,0 +1,5 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="admin-page-head"><div><h2>👤 {% if model.pk %}Mijozni tahrirlash{% else %}Yangi mijoz{% endif %}</h2></div><a href="{% url 'user_list' %}" class="btn btn-light">← Orqaga</a></div>
+<div class="admin-card form-card"><form method="post">{% csrf_token %}{% for field in form %}<div class="form-group"><label>{{ field.label }}</label>{{ field }}{% if field.errors %}<div class="text-danger">{{ field.errors }}</div>{% endif %}</div>{% endfor %}<button class="btn btn-flower" type="submit">Saqlash</button></form></div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="admin-page-head"><div><h2>🌷 Kategoriyalar</h2><p>Gullar kategoriyalarini boshqaring.</p></div><a class="btn btn-flower" href="{% url 'category_create' %}">+ Kategoriya qo‘shish</a></div>
+<div class="admin-card"><div class="table-responsive"><table class="table"><thead><tr><th>#</th><th>Nomi</th><th>Gullar soni</th><th>Amallar</th></tr></thead><tbody>
+{% for category in categories %}<tr><td>{{ category.id }}</td><td><strong>{{ category.title }}</strong></td><td>{{ category.product_set.count }}</td><td><a class="btn btn-sm btn-outline-primary" href="{% url 'category_edit' category.id %}">Tahrirlash</a> <a class="btn btn-sm btn-outline-danger" href="{% url 'category_delete' category.id %}" onclick="return confirm('Kategoriyani o‘chirasizmi?')">O‘chirish</a></td></tr>
+{% empty %}<tr><td colspan="4" class="text-center text-muted py-4">Hozircha kategoriya yo‘q.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

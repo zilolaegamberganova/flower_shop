@@ -1,0 +1,7 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="admin-page-head"><div><h2>👥 Mijozlar</h2><p>Do‘kon mijozlarini boshqaring.</p></div><a class="btn btn-flower" href="{% url 'user_create' %}">+ Mijoz qo‘shish</a></div>
+<div class="admin-card"><div class="table-responsive"><table class="table"><thead><tr><th>#</th><th>Ism</th><th>Familiya</th><th>Telefon</th><th>Amallar</th></tr></thead><tbody>
+{% for user in users %}<tr><td>{{ user.id }}</td><td>{{ user.first_name }}</td><td>{{ user.last_name }}</td><td>{{ user.phone_number }}</td><td><a class="btn btn-sm btn-outline-primary" href="{% url 'user_edit' user.id %}">Tahrirlash</a> <a class="btn btn-sm btn-outline-danger" href="{% url 'user_delete' user.id %}" onclick="return confirm('Mijozni o‘chirasizmi?')">O‘chirish</a></td></tr>{% empty %}<tr><td colspan="5" class="text-center text-muted py-4">Hozircha mijoz yo‘q.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

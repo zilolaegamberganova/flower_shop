@@ -1,0 +1,915 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAST Code - Flower</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: url("{% static 'flower_back.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 98%;
+            margin: auto;
+            padding-top: 15px;
+        }
+
+        .logo {
+            width: 90px;
+            filter: drop-shadow(0 0 10px #f42be9);
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            font-size: 14px;
+            color: #1e2f23;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            padding-bottom: 5px;
+        }
+
+        nav ul li a:hover {
+            color: #ab844b;
+            border-bottom: 2px solid #ab844b;
+            font-weight: 600;
+        }
+
+        nav .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        nav .follow-btn {
+            padding: 12px 35px;
+            border: none;
+            background: #ab844b;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: .3s;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(171, 132, 75, 0.2);
+        }
+
+        nav .follow-btn:hover {
+            box-shadow: 0 0 15px #ab844b;
+            scale: .95;
+        }
+
+        .cart-btn-nav {
+            position: relative;
+            background: #1e2f23;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .cart-btn-nav:hover {
+            background: #ab844b;
+        }
+
+        .cart-badge {
+            background: #e74c3c;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 50%;
+        }
+
+        .user-btn-nav {
+            background: #ab844b;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .content {
+            position: absolute;
+            top: 37%;
+            left: 90px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 60px;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 70px;
+            color: #1e2f23;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-top: 15px;
+            color: #444;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .content button, .content a.btn-link {
+            margin-top: 50px;
+            padding: 14px 45px;
+            border: none;
+            background-color: #ab844b;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: .3s;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(171, 132, 75, 0.3);
+        }
+
+        .content button:hover, .content a.btn-link:hover {
+            scale: 1.05;
+            box-shadow: 0 8px 20px rgba(171, 132, 75, 0.4);
+        }
+
+        .content a.see_more {
+            margin-left: 25px;
+            border: 2px solid #ab844b;
+            color: #ab844b;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .content a.see_more:hover {
+            scale: 1.05;
+            box-shadow: 0 5px 15px rgba(171, 132, 75, 0.3);
+            background: #ab844b;
+            color: #fff;
+        }
+
+        .section {
+            padding: 100px 90px;
+            background: #faf8f5;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1e2f23;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #ab844b;
+            margin: 15px auto 0 auto;
+        }
+
+        #joy-info {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .info-container p {
+            font-size: 16px;
+            line-height: 30px;
+            color: #555;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(171, 132, 75, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #1e2f23;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card .price {
+            font-size: 18px;
+            color: #ab844b;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 12px 0;
+            border: 1px solid #ab844b;
+            background: transparent;
+            color: #ab844b;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .buy-btn:hover {
+            background: #ab844b;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(171, 132, 75, 0.2);
+        }
+
+        .reviews-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .reviews-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(148, 28, 28, 0.02);
+            border-left: 4px solid #ab844b;
+        }
+
+        .review-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 24px;
+            font-style: italic;
+        }
+
+        .review-card h4 {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #1e2f23;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .review-form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.03);
+        }
+
+        .review-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            margin-bottom: 25px;
+            color: #1e2f23;
+        }
+
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+            background: #fbfbfb;
+        }
+
+        .review-form input:focus, .review-form textarea:focus {
+            border-color: #ab844b;
+            background: #fff;
+        }
+
+        .review-form textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .submit-review-btn {
+            padding: 14px 40px;
+            background: #ab844b;
+            color: #fff;
+            border: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(171, 132, 75, 0.2);
+        }
+
+        .submit-review-btn:hover {
+            box-shadow: 0 5px 20px rgba(171, 132, 75, 0.4);
+            scale: 1.02;
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 20px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: right;
+            color: #1e2f23;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 14px;
+            background: #ab844b;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .confirm-btn:hover {
+            background: #1e2f23;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero" id="home">
+        <nav>
+            <img src="https://www.pngmart.com/files/1/Flower-Logo-PNG-Transparent-Image.png" class="logo" alt="Logo">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="https://t.me/ziris_hub" target="_blank">About</a></li>
+                <li><a href="#flowers">Flower</a></li>
+                <li><a href="#perfumes">Perfumes</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <div class="cart-btn-nav" onclick="openCart()">
+                    🛒 Savat <span class="cart-badge" id="cart-count">0</span>
+                </div>
+                <div class="user-btn-nav" id="userAccountBtn" onclick="openAuthModal()">
+                    👤 Kirish / Ro'yxatdan o'tish
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <h2>Pure happiness <br>in every bloom</h2>
+            <p>Can flowers bring pure happiness into your life? Absolutely. Discover our special collection designed to fill your <br> heart with joy and your home with natural beauty.</p>
+            <button onclick="location.href='#joy-info'">Get Joy Now</button>
+            <a href="#flowers" class="btn-link see_more">See More</a>
+        </div>
+    </div>
+
+    <div class="section" id="joy-info">
+        <div class="info-container">
+            <h2 class="section-title">The Magic of Flowers</h2>
+            <p>Flowers possess a unique language that transcends words. They have the power to instantly lift moods, reduce stress, and bring a refreshing energy to any environment. Each bloom is a reminder of nature's simple elegance and life's vibrant colors.</p>
+            <p>Our carefully selected floral designs are crafted to inspire happiness, celebrate love, and create unforgettable memories. Let us bring a piece of paradise straight to your living space.</p>
+        </div>
+    </div>
+
+    <div class="section" id="flowers">
+        <h2 class="section-title">Our Flower Collection</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=400" alt="Rose">
+                <h3>Red Velvet Rose</h3>
+                <div class="price">$25.00</div>
+                <button class="buy-btn" onclick="addToCart('Red Velvet Rose', 25)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400" alt="Tulip">
+                <h3>Golden Tulip</h3>
+                <div class="price">$18.00</div>
+                <button class="buy-btn" onclick="addToCart('Golden Tulip', 18)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?w=400" alt="Lily">
+                <h3>White Lily</h3>
+                <div class="price">$30.00</div>
+                <button class="buy-btn" onclick="addToCart('White Lily', 30)">Buy Now</button>
+            </div>
+            <!-- Yangilangan rasm havolasi -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=400" alt="Bright Sunflower">
+                <h3>Bright Sunflower</h3>
+                <div class="price">$15.00</div>
+                <button class="buy-btn" onclick="addToCart('Bright Sunflower', 15)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400" alt="Orchid">
+                <h3>Purple Orchid</h3>
+                <div class="price">$45.00</div>
+                <button class="buy-btn" onclick="addToCart('Purple Orchid', 45)">Buy Now</button>
+            </div>
+            <!-- Yangilangan rasm havolasi -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=400" alt="Classic Daisy">
+                <h3>Classic Daisy</h3>
+                <div class="price">$12.00</div>
+                <button class="buy-btn" onclick="addToCart('Classic Daisy', 12)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1550950158-d0d960dff51b?w=400" alt="Peony">
+                <h3>Blush Peony</h3>
+                <div class="price">$35.00</div>
+                <button class="buy-btn" onclick="addToCart('Blush Peony', 35)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=400" alt="Hydrangea">
+                <h3>Sky Blue Hydrangea</h3>
+                <div class="price">$28.00</div>
+                <button class="buy-btn" onclick="addToCart('Sky Blue Hydrangea', 28)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8?w=400" alt="Lavender">
+                <h3>French Lavender</h3>
+                <div class="price">$20.00</div>
+                <button class="buy-btn" onclick="addToCart('French Lavender', 20)">Buy Now</button>
+            </div>
+            <!-- Yangilangan rasm havolasi -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=400" alt="Sweet Jasmine">
+                <h3>Sweet Jasmine</h3>
+                <div class="price">$22.00</div>
+                <button class="buy-btn" onclick="addToCart('Sweet Jasmine', 22)">Buy Now</button>
+            </div>
+
+            {% for product in products %}
+            <div class="card">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=400" alt="Product">
+                {% endif %}
+                <h3>{{ product.title }}</h3>
+                <div class="price">${{ product.price }}</div>
+                <button class="buy-btn" onclick="addToCart('{{ product.title|escapejs }}', {{ product.price }})">Buy Now</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section" id="perfumes" style="background: #fff;">
+        <h2 class="section-title">Floral Perfumes</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=400" alt="Perfume 1">
+                <h3>Rose Mystique</h3>
+                <div class="price">$75.00</div>
+                <button class="buy-btn" onclick="addToCart('Rose Mystique', 75)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400" alt="Perfume 2">
+                <h3>Jasmine Breeze</h3>
+                <div class="price">$89.00</div>
+                <button class="buy-btn" onclick="addToCart('Jasmine Breeze', 89)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400" alt="Perfume 3">
+                <h3>Oceanic Flora</h3>
+                <div class="price">$65.00</div>
+                <button class="buy-btn" onclick="addToCart('Oceanic Flora', 65)">Buy Now</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400" alt="Perfume 4">
+                <h3>Summer Bloom</h3>
+                <div class="price">$95.00</div>
+                <button class="buy-btn" onclick="addToCart('Summer Bloom', 95)">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="reviews">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="reviews-wrapper">
+            <div id="no-reviews-text" class="no-reviews">No reviews yet. Be the first to write one!</div>
+            <div class="reviews-container" id="reviews-container"></div>
+
+            <div class="review-form">
+                <h3>Add a Review</h3>
+                <input type="text" id="username" placeholder="Your Name" required>
+                <textarea id="review-text" placeholder="Your Review" required></textarea>
+                <button class="submit-review-btn" onclick="addReview()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER / LOGIN MODAL OYNASI -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <h2 style="font-size: 24px; margin-bottom: 20px; text-align: center;">Ro'yxatdan o'tish</h2>
+            <div class="form-group">
+                <input type="text" id="reg-firstname" placeholder="Ismingiz" required>
+                <input type="text" id="reg-lastname" placeholder="Familiyangiz" required>
+                <input type="text" id="reg-username" placeholder="Username (Foydalanuvchi nomi)" required>
+                <input type="email" id="reg-email" placeholder="Email manzilingiz" required>
+                <input type="password" id="reg-password" placeholder="Parol" required>
+                <button class="confirm-btn" onclick="saveUser()">Ro'yxatdan o'tish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAVAT OYNASI -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCart()">&times;</span>
+            <h2 style="font-size: 24px; margin-bottom: 20px;">Savat</h2>
+
+            <div id="cart-items-list"></div>
+            <div class="cart-total" id="cart-total-price">Jami: $0.00</div>
+
+            <div class="form-group" id="checkoutForm">
+                {% csrf_token %}
+                <h3 style="font-size: 18px; margin-bottom: 10px;">Buyurtmani rasmiylashtirish</h3>
+                <input type="text" id="cust-name" placeholder="Ismingiz" required>
+                <input type="tel" id="cust-phone" placeholder="Telefon raqamingiz (+998...)" required>
+                <input type="text" id="cust-address" placeholder="Yetkazib berish manzili" required>
+                <button class="confirm-btn" onclick="checkout()">Sotib olishni tasdiqlash</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        // Sayt yuklanganda ro'yxatdan o'tishni tekshirish
+        window.onload = function() {
+            const savedUser = localStorage.getItem('site_user');
+            if(!savedUser) {
+                openAuthModal();
+            } else {
+                const user = JSON.parse(savedUser);
+                document.getElementById('userAccountBtn').innerText = `👤 ${user.firstname}`;
+                document.getElementById('cust-name').value = `${user.firstname} ${user.lastname}`;
+            }
+        };
+
+        function openAuthModal() {
+            document.getElementById('authModal').style.display = 'flex';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function saveUser() {
+            const firstname = document.getElementById('reg-firstname').value.trim();
+            const lastname = document.getElementById('reg-lastname').value.trim();
+            const username = document.getElementById('reg-username').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value.trim();
+
+            if(!firstname || !lastname || !username || !email || !password) {
+                alert("Iltimos, barcha maydonlarni to'ldiring!");
+                return;
+            }
+
+            const userData = { firstname, lastname, username, email };
+            localStorage.setItem('site_user', JSON.stringify(userData));
+
+            document.getElementById('userAccountBtn').innerText = `👤 ${firstname}`;
+            document.getElementById('cust-name').value = `${firstname} ${lastname}`;
+            alert(`Xush kelibsiz, ${firstname}! Ro'yxatdan muvaffaqiyatli o'tdingiz.`);
+            closeAuthModal();
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+            alert(`"${title}" savatchaga qo'shildi!`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const itemsList = document.getElementById('cart-items-list');
+            itemsList.innerHTML = '';
+
+            let total = 0;
+            if (cart.length === 0) {
+                itemsList.innerHTML = '<p style="text-align: center; color: #888;">Savat hozircha bo\'sh.</p>';
+            } else {
+                cart.forEach((item) => {
+                    total += Number(item.price);
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `
+                        <span>${item.title}</span>
+                        <span>$${item.price}.00</span>
+                    `;
+                    itemsList.appendChild(itemDiv);
+                });
+            }
+            document.getElementById('cart-total-price').innerText = `Jami: $${total}.00`;
+        }
+
+        function openCart() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function checkout() {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (cart.length === 0) {
+                alert("Savatingiz bo'sh!");
+                return;
+            }
+
+            if (!name || !phone || !address) {
+                alert("Iltimos, barcha maydonlarni to'ldiring!");
+                return;
+            }
+
+            alert(`Rahmat, ${name}! Buyurtmangiz qabul qilindi.`);
+            cart = [];
+            updateCartUI();
+            closeCart();
+        }
+
+        function addReview() {
+            const usernameInput = document.getElementById('username');
+            const reviewTextInput = document.getElementById('review-text');
+            const reviewsContainer = document.getElementById('reviews-container');
+            const noReviewsText = document.getElementById('no-reviews-text');
+
+            if(usernameInput.value.trim() === "" || reviewTextInput.value.trim() === "") {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            noReviewsText.style.display = 'none';
+
+            const card = document.createElement('div');
+            card.className = 'review-card';
+
+            const p = document.createElement('p');
+            p.textContent = `"${reviewTextInput.value}"`;
+
+            const h4 = document.createElement('h4');
+            h4.textContent = `- ${usernameInput.value}`;
+
+            card.appendChild(p);
+            card.appendChild(h4);
+            reviewsContainer.appendChild(card);
+
+            usernameInput.value = "";
+            reviewTextInput.value = "";
+        }
+    </script>
+</body>
+</html>
+<script>
+function buyNow(productId) {
+    // Mijozdan ism va telefon raqam so'raymiz
+    let name = prompt("Ismingizni kiriting:");
+    if (!name) return;
+
+    let phone = prompt("Telefon raqamingizni kiriting:");
+    if (!phone) return;
+
+    fetch(`/buy-now/${productId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            name: name,
+            phone: phone,
+            quantity: 1
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            alert(data.message);
+            window.location.reload();
+        } else {
+            alert("Xatolik: " + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// CSRF tokenni olish uchun yordamchi funksiya
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+<button onclick="quickBuy('{{ product.id }}')" class="btn btn-primary">Buy Now</button>
+
+<script>
+function getCSRFToken() {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, 10) === ('csrftoken=')) {
+                cookieValue = decodeURIComponent(cookie.substring(10));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function buyProduct(productId) {
+    const name = prompt("Ismingiz va familiyangizni kiriting:");
+    if (!name) return;
+
+    const phone = prompt("Telefon raqamingizni kiriting:");
+    if (!phone) return;
+
+    fetch(`/buy/${productId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify({
+            name: name,
+            phone: phone,
+            quantity: 1,
+            address: "Toshkent"
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            window.location.reload();
+        } else {
+            alert("Xatolik: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("So'rov yuborishda xatolik yuz berdi.");
+    });
+}
+</script>

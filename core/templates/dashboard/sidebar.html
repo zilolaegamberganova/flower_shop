@@ -1,0 +1,38 @@
+{% load static %}
+<aside class="menu-sidebar d-none d-lg-block">
+    <div class="logo">
+        <a href="{% url 'home' %}">
+            <h3 style="font-weight: bold; color: #333; margin: 0;">🌸 Flower Admin</h3>
+        </a>
+    </div>
+    <div class="menu-sidebar__content js-scrollbar1">
+        <nav class="navbar-sidebar">
+            <ul class="list-unstyled navbar__list">
+                <li>
+                    <a href="{% url 'product_list' %}">
+                        <i class="fas fa-spa"></i>Gullar (Do'kon)</a>
+                </li>
+                <li>
+                    <a href="{% url 'main_dashboard' %}">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                </li>
+                <li>
+                    <a href="{% url 'category_list' %}">
+                        <i class="fas fa-list-alt"></i>Kategoriyalar</a>
+                </li>
+                <li>
+                    <a href="{% url 'user_list' %}">
+                        <i class="fas fa-users"></i>Mijozlar</a>
+                </li>
+                <li>
+                    <a href="{% url 'order_list' %}">
+                        <i class="fas fa-shopping-cart"></i>Buyurtmalar</a>
+                </li>
+                <li style="margin-top: 15px;">
+                    <a href="{% url 'logout_page' %}" style="color: #dc3545; font-weight: bold;">
+                        <i class="fas fa-power-off"></i>Chiqish</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

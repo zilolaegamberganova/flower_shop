@@ -1,0 +1,243 @@
+<!-- 🌷 FLOWER SHOP - ORDER PAGE -->
+
+<div class="container">
+
+    <!-- 🌸 Header -->
+    <div class="order-header">
+        <h1>🌷 Flower Shop</h1>
+        <p>Sevimli gullaringizni buyurtma qiling</p>
+    </div>
+
+    <!-- 🛒 Savat -->
+    <div class="cart-section">
+        <h2>🛒 Savatingiz</h2>
+
+        <div id="cart-items">
+            <!-- Gullarning savati JavaScript orqali chiqadi -->
+        </div>
+
+        <div class="cart-total">
+            <span>Jami:</span>
+            <strong id="total-price">0 so'm</strong>
+        </div>
+    </div>
+
+
+    <!-- 👤 Mijoz ma'lumotlari -->
+    <div class="customer-section">
+
+        <h2>👤 Mijoz ma'lumotlari</h2>
+
+        <div class="form-group">
+            <label for="name">Ismingiz</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Ismingizni kiriting"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="phone">📞 Telefon raqamingiz</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+998 90 123 45 67"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="address">📍 Yetkazib berish manzili</label>
+            <textarea
+                id="address"
+                name="address"
+                placeholder="Manzilingizni kiriting"
+                required
+            ></textarea>
+        </div>
+
+    </div>
+
+
+    <!-- 🌸 Yetkazib berish -->
+    <div class="delivery-section">
+
+        <h2>🚚 Yetkazib berish</h2>
+
+        <div class="form-group">
+            <label for="delivery-date">
+                Yetkazib berish sanasi
+            </label>
+
+            <input
+                type="date"
+                id="delivery-date"
+                name="delivery_date"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="delivery-time">
+                🕐 Yetkazib berish vaqti
+            </label>
+
+            <select id="delivery-time" name="delivery_time">
+
+                <option value="">
+                    Vaqtni tanlang
+                </option>
+
+                <option value="09:00-12:00">
+                    09:00 - 12:00
+                </option>
+
+                <option value="12:00-15:00">
+                    12:00 - 15:00
+                </option>
+
+                <option value="15:00-18:00">
+                    15:00 - 18:00
+                </option>
+
+                <option value="18:00-21:00">
+                    18:00 - 21:00
+                </option>
+
+            </select>
+        </div>
+
+    </div>
+
+
+    <!-- 💳 To'lov -->
+    <div class="payment-section">
+
+        <h2>💳 To'lov usuli</h2>
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="payment"
+                value="cash"
+                checked
+            >
+            💵 Naqd pul
+        </label>
+
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="payment"
+                value="card"
+            >
+            💳 Bank kartasi
+        </label>
+
+    </div>
+
+
+    <!-- 🌷 Buyurtma -->
+    <div class="order-summary">
+
+        <h2>🌷 Buyurtma ma'lumotlari</h2>
+
+        <div class="summary-row">
+            <span>Gullar:</span>
+            <span id="flowers-count">0 ta</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Yetkazib berish:</span>
+            <span>20 000 so'm</span>
+        </div>
+
+        <div class="summary-row total">
+            <span>Jami:</span>
+            <strong id="order-total">
+                0 so'm
+            </strong>
+        </div>
+
+    </div>
+
+
+    <!-- 💐 Buyurtma berish -->
+    <button
+        type="button"
+        class="order-button"
+        onclick="placeFlowerOrder()"
+    >
+        💐 Buyurtma berish
+    </button>
+
+</div>
+
+
+<script>
+
+function placeFlowerOrder() {
+
+    const name =
+        document.getElementById("name").value;
+
+    const phone =
+        document.getElementById("phone").value;
+
+    const address =
+        document.getElementById("address").value;
+
+    const date =
+        document.getElementById("delivery-date").value;
+
+    const time =
+        document.getElementById("delivery-time").value;
+
+
+    if (!name) {
+        alert("Iltimos, ismingizni kiriting!");
+        return;
+    }
+
+    if (!phone) {
+        alert("Iltimos, telefon raqamingizni kiriting!");
+        return;
+    }
+
+    if (!address) {
+        alert("Iltimos, yetkazib berish manzilini kiriting!");
+        return;
+    }
+
+    if (!date) {
+        alert("Iltimos, yetkazib berish sanasini tanlang!");
+        return;
+    }
+
+    if (!time) {
+        alert("Iltimos, yetkazib berish vaqtini tanlang!");
+        return;
+    }
+
+
+    // Flower Shop order
+    console.log({
+        name: name,
+        phone: phone,
+        address: address,
+        delivery_date: date,
+        delivery_time: time
+    });
+
+
+    alert(
+        "🌷 Buyurtmangiz qabul qilindi!\n\n" +
+        "Rahmat, " + name + "!"
+    );
+}
+
+</script>

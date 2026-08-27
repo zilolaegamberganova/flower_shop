@@ -1,0 +1,73 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<style>
+    .product-thumb-img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+</style>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>💐 Gullar</h2>
+        <p class="text-muted">Mahsulotlarni qo‘shing, tahrirlang va o‘chiring.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'product_create' %}">+ Gul qo‘shish</a>
+</div>
+
+{% if form %}
+<div class="card p-4 mb-4">
+    <h4>{% if model.pk %}Gulni tahrirlash{% else %}Yangi gul{% endif %}</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-success" type="submit">Saqlash</button>
+        <a class="btn btn-secondary" href="{% url 'product_list' %}">Bekor qilish</a>
+    </form>
+</div>
+{% endif %}
+
+<div class="card p-3">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Rasm</th>
+                    <th>Gul Nomi</th>
+                    <th>Kategoriya</th>
+                    <th>Narxi</th>
+                    <th>Amallar</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>
+                        {% if product.image %}
+                            <img class="product-thumb-img" src="{{ product.image.url }}" alt="{{ product.title }}">
+                        {% else %}
+                            🌸
+                        {% endif %}
+                    </td>
+                    <td>
+                        <strong>{{ product.title }}</strong><br>
+                        <small class="text-muted">{{ product.description|truncatechars:50 }}</small>
+                    </td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }} so‘m</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'product_edit' product.id %}">Tahrirlash</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'product_delete' product.id %}" onclick="return confirm('Gulni o‘chirasizmi?')">O‘chirish</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">Hozircha gul yo‘q.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

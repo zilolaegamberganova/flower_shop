@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Admin — Kirish</title>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}">
+    <style>
+        body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff7fb,#f2f8f5);font-family:Arial,sans-serif}
+        .login-card{width:380px;background:#fff;border-radius:20px;padding:35px;box-shadow:0 15px 45px rgba(0,0,0,.08)}
+        .logo{text-align:center;font-size:28px;font-weight:700;color:#2d5945;margin-bottom:8px}.subtitle{text-align:center;color:#777;margin-bottom:28px}
+        label{font-weight:600;color:#444}.form-control{height:46px;border-radius:10px}.btn-flower{width:100%;height:46px;border:0;border-radius:10px;background:#b98a4b;color:#fff;font-weight:700}
+        .error{background:#fff0f0;color:#c62828;border-radius:10px;padding:10px;margin-bottom:15px;text-align:center}
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <div class="logo">🌸 Flower Admin</div>
+    <div class="subtitle">Admin panelga kirish</div>
+    {% if request.method == 'POST' %}<div class="error">Login yoki parol noto‘g‘ri.</div>{% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group"><label>Login</label><input class="form-control" name="username" required autofocus></div>
+        <div class="form-group"><label>Parol</label><input class="form-control" type="password" name="password" required></div>
+        <button class="btn-flower" type="submit">Kirish</button>
+    </form>
+</div>
+</body>
+</html>

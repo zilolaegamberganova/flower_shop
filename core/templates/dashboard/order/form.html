@@ -1,0 +1,2 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}<div class="admin-page-head"><div><h2>🛒 Yangi buyurtma</h2></div><a href="{% url 'order_list' %}" class="btn btn-light">← Orqaga</a></div><div class="admin-card form-card"><form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-flower" type="submit">Saqlash</button></form></div>{% endblock %}
