@@ -15,7 +15,7 @@ urlpatterns = [
 
     path('products/', views.product_list, name='product_list'),
     path('products/create/', views.product_create, name='product_create'),
-    path('products/<int:pk>/edit/', views.product_edit, name='product_edit'),  # <-- name 'product_edit' ga to'g'rilandi
+    path('products/<int:pk>/edit/', views.product_edit, name='product_edit'),
     path('products/<int:pk>/delete/', views.product_delete, name='product_delete'),
 
     path('categories/', views.category_list, name='category_list'),
@@ -36,6 +36,8 @@ urlpatterns = [
     path('add-comment/', views.add_comment, name='add_comment'),
 ]
 
+# Media fayllarini serverda har doim ko'rsatish uchun
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
