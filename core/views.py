@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from . import forms
 from . import services
-from .filters import Product_Filter
+from products.filters import Product_Filter
 
 def home_page(request):
 
