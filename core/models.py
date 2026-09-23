@@ -25,8 +25,12 @@ class Review(models.Model):
     return f"{self.username} - {self.review_text[:20]}"
 
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 try:
-  if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin', 'Ziri@gmail.com', 'python')
-except (OperationalError, ProgrammingError):
-  pass
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'Ziri@gmail.com', 'python')
+except Exception:
+    pass
