@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from . import forms
 from . import services
-from products.filters import Product_Filter
+from products.filters import ProductFilter
 
 def home_page(request):
 
@@ -159,9 +159,9 @@ def category_delete(request, pk):
 @login_required_decarator
 def product_list(request):
     products = Product.objects.all()
-    product_filter=Product_Filter(request.GET,queryset=products)
+    product_filter = ProductFilter(request.GET, queryset=products)
     return render(request, "dashboard/product_list.html",
-                  {'products': products})
+                  {'products': products, 'filter': product_filter})
 
 
 @login_required_decarator
@@ -218,8 +218,8 @@ def orderproduct_list(request, id):
 
 @login_required_decarator
 def order_create(request):
-    form=forms.OrderForm(request.POST or None)
-    if request.method=="POST" and form.is_valid():
+    form = forms.OrderForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
         form.save()
         return redirect('order_list')
-    return render(request,'dashboard/order/form.html',{'form':form})
+    return render(request, 'dashboard/order/form.html', {'form': form})
