@@ -10,6 +10,7 @@ def login_required_decorator(func):
     return login_required(func, login_url='login_page')
 
 
+# 1. BIRINCHI OCHILADIGAN GULLAR DO'KONI SAHIFASI
 def home_page(request):
     products = Product.objects.all() if 'Product' in globals() else []
     categories = Category.objects.all() if 'Category' in globals() else []
@@ -20,9 +21,11 @@ def home_page(request):
         'categories': categories,
         'reviews': reviews,
     }
+    # To'g'ridan-to'g'ri tayyor do'kon HTML fayli ko'rsatiladi
     return render(request, 'index.html', ctx)
 
 
+# 2. ADMIN DASHBOARD
 @login_required_decorator
 def main_dashboard(request):
     categories = Category.objects.all() if 'Category' in globals() else []
@@ -48,6 +51,7 @@ def main_dashboard(request):
     return render(request, 'dashboard/index.html', ctx)
 
 
+# 3. LOGIN SAHIFASI
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('main_dashboard')
@@ -69,26 +73,28 @@ def logout_page(request):
     return redirect('login_page')
 
 
+# KATEGORIYALAR
 @login_required_decorator
 def category_list(request):
     categories = Category.objects.all() if 'Category' in globals() else []
     return render(request, "dashboard/category/list.html", {'categories': categories})
 
 
-
+# MAHSULOTLAR
 @login_required_decorator
 def product_list(request):
     products = Product.objects.all() if 'Product' in globals() else []
     return render(request, "dashboard/product/list.html", {'products': products})
 
 
+# MIJOZLAR
 @login_required_decorator
 def user_list(request):
     users = Customer.objects.all() if 'Customer' in globals() else []
     return render(request, "dashboard/user/list.html", {'users': users})
 
 
-
+# BUYURTMALAR
 @login_required_decorator
 def order_list(request):
     orders = Order.objects.all() if 'Order' in globals() else []

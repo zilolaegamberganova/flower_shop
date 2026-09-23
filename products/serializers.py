@@ -1,8 +1,9 @@
-from rest_framework import serializers
-from .models import Product,Review,Category
-
-class ReviewSerializer(serializers.ModelSerizlizer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model=Review
-        fields=['id','product', 'user', 'rating', 'comment', 'created_at']
-        read_only_fields = ['user']
+        model = Category
+        fields = ['id', 'name']
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'category', 'title', 'price', 'description']

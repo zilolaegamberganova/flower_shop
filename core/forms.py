@@ -1,5 +1,6 @@
 from django import forms
-from core.models import Product, Review, Order, Category, Customer
+from products.models import Category, Product
+from .models import Customer
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -34,9 +35,3 @@ class UserForm(forms.ModelForm):
             "last_name": forms.TextInput(attrs={'class': 'form-control'}),
             "phone_number": forms.TextInput(attrs={'class': 'form-control'}),
         }
-
-class OrderForm(forms.ModelForm):
-    class Meta:
-        model = Order
-        fields = ['customer']
-        widgets = {"customer": forms.Select(attrs={"class": "form-control"})}
