@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="uz">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Flower Admin - Dashboard</title>
-
-    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
-    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
-
-    <style>
-        /* To'liq ekran uchun sozlash */
+<style>
+        /* Umumiy sozlama */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: #f5f5f5;
+            background-color: #f4f7f6;
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            width: 100vw;
+            width: 100%;
             overflow-x: hidden;
         }
 
@@ -36,9 +20,9 @@
             position: relative;
         }
 
-        /* Chap menyu */
+        /* Chap menyu (Sidebar) */
         .menu-sidebar {
-            width: 280px;
+            width: 260px;
             position: fixed;
             left: 0;
             top: 0;
@@ -50,19 +34,19 @@
         }
 
         .menu-sidebar .logo {
-            padding: 20px 30px;
-            border-bottom: 1px solid #e5e5e5;
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
         }
 
         .navbar-sidebar {
-            padding: 20px 0;
+            padding: 15px 0;
         }
 
         .navbar-sidebar .navbar__list li a {
             display: flex;
             align-items: center;
-            padding: 14px 30px;
-            color: #555;
+            padding: 14px 25px;
+            color: #333;
             font-size: 15px;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -74,131 +58,42 @@
         }
 
         .navbar-sidebar .navbar__list li a i {
-            margin-right: 15px;
+            margin-right: 12px;
             width: 20px;
             text-align: center;
-            font-size: 18px;
+            font-size: 16px;
         }
 
-        /* Sahifa konteyneri - to'liq ekranni egallashi uchun */
+        /* Sahifa konteyneri (Asosiy qism) */
         .page-container {
-            flex-grow: 1;
-            margin-left: 280px;
-            width: calc(100vw - 280px);
+            margin-left: 260px;
+            width: calc(100% - 260px);
             min-height: 100vh;
+            background: #f4f7f6;
             position: relative;
-            background: #f5f5f5;
         }
 
         /* Yuqori Header */
         .header-desktop {
-            height: 75px;
+            height: 70px;
             background: #ffffff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             position: fixed;
             top: 0;
             right: 0;
-            left: 280px;
+            left: 260px;
             z-index: 999;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 40px;
+            padding-right: 30px;
         }
 
-        .account-item .image img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .account-wrap {
-            position: relative;
-        }
-
-        .account-dropdown {
-            position: absolute;
-            right: 0;
-            top: 60px;
-            background: #fff;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            border-radius: 4px;
-            display: none;
-            width: 250px;
-            z-index: 1001;
-        }
-
-        .account-item:hover .account-dropdown {
-            display: block;
-        }
-
-        .account-dropdown__body {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .account-dropdown__item a {
-            padding: 10px 20px;
-            display: block;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .account-dropdown__item a:hover {
-            background: #f8f9fa;
-            color: #007bff;
-        }
-
-        .account-dropdown__footer a {
-            padding: 12px 20px;
-            display: block;
-            color: #dc3545;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Asosiy kontent maydoni */
+        /* Asosiy kontent markazda va tekis turishi uchun */
         .main-content {
-            padding-top: 100px;
-            padding-left: 40px;
-            padding-right: 40px;
-            padding-bottom: 50px;
+            padding: 95px 30px 40px 30px;
             width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
     </style>
-</head>
-
-<body>
-    <div class="page-wrapper">
-
-        <!-- Chap menyu (Sidebar) -->
-        {% include 'dashboard/sidebar.html' %}
-
-        <!-- Sahifa konteyneri -->
-        <div class="page-container">
-
-            <!-- Yuqori Header Bar -->
-            {% include 'dashboard/header.html' %}
-
-            <!-- Asosiy Kontent -->
-            <div class="main-content">
-                <div class="container-fluid" style="max-width: 100% !important;">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    {% block javascript %}
-    {% endblock %}
-</body>
-
-</html>
