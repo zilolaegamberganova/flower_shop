@@ -5,7 +5,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-my-secret-key-flower-project')
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+# Xatolikni aniq ko'rish uchun True qilib qo'yildi
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
