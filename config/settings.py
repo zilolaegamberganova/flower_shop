@@ -7,7 +7,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-my-secret-key-flower-proje
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = 'config.urls'
 
