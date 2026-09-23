@@ -5,17 +5,15 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from . import forms
 from . import services
-from products.filters import Product_Filter
+from products.filters import ProductFilter
 
 def home_page(request):
-
     products = Product.objects.all()
     categories = Category.objects.all()
     ctx = {
         'products': products,
         'categories': categories,
     }
-
     return render(request, 'dashboard/home.html', ctx)
 
 def login_required_decarator(func):
@@ -140,8 +138,8 @@ def category_delete(request, pk):
 @login_required_decarator
 def product_list(request):
     products = Product.objects.all()
-    product_filter = Product_Filter(request.GET, queryset=products)
-    return render(request, "dashboard/product_list.html", {'products': products})
+    product_filter = ProductFilter(request.GET, queryset=products)  # Product_Filter -> ProductFilter qilindi
+    return render(request, "dashboard/product_list.html", {'products': products, 'filter': product_filter})
 
 @login_required_decarator
 def product_create(request):
