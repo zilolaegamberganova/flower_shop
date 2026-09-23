@@ -1,37 +1,17 @@
-<html>
+{% for product in filter.qs %}
+     <li>{{product.name}} - ${{product.price}}</li>
+<%empty%>
+     <li>No products found❕ </li>
+{% endfor %}
+```[cite: 35]
 
-<head>
+```html
+{% for product in filter.qs %}
+     <li>{{ product.name }} - ${{ product.price }}</li>
+{% empty %}
+     <li>No products found❕ </li>
+{% endfor %}
+```[cite: 35]
 
-    <title>Product list</title>
+---
 
-
-</head>
-<body>
-    <h1>Product List</h1>
-    <form method="get">
-        {{filter.form.as_p}}
-        <button type="submit">Filter</button>
-        <a href="{%url 'product-filter' %}">Clear results</a>
-
-    </form>
-    <ul>
-
-        {%for product in filter.qs%}
-             <li>{{product.name}} - ${{product.price}}</li>
-        <%empty%>
-             <li>No products found❕ </li>
-        {%endfor%}
-
-
-
-
-    </ul>
-
-</body>
-
-
-
-
-
-
-</html>
