@@ -15,12 +15,17 @@
     <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
 
     <style>
-        /* --- ZAXIRA DIZAYN (Statik fayllar o'qilmasa ham ishlaydi) --- */
+        /* To'liq ekran uchun sozlash */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #f5f5f5;
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            width: 100vw;
             overflow-x: hidden;
         }
 
@@ -31,7 +36,7 @@
             position: relative;
         }
 
-        /* Sidebar dizayni */
+        /* Chap menyu */
         .menu-sidebar {
             width: 280px;
             position: fixed;
@@ -54,8 +59,9 @@
         }
 
         .navbar-sidebar .navbar__list li a {
-            display: block;
-            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            padding: 14px 30px;
             color: #555;
             font-size: 15px;
             text-decoration: none;
@@ -71,18 +77,20 @@
             margin-right: 15px;
             width: 20px;
             text-align: center;
+            font-size: 18px;
         }
 
-        /* Sahifa konteyneri */
+        /* Sahifa konteyneri - to'liq ekranni egallashi uchun */
         .page-container {
             flex-grow: 1;
             margin-left: 280px;
-            width: calc(100% - 280px);
+            width: calc(100vw - 280px);
             min-height: 100vh;
             position: relative;
+            background: #f5f5f5;
         }
 
-        /* Header dizayni */
+        /* Yuqori Header */
         .header-desktop {
             height: 75px;
             background: #ffffff;
@@ -150,12 +158,13 @@
             font-weight: bold;
         }
 
-        /* Asosiy kontent */
+        /* Asosiy kontent maydoni */
         .main-content {
             padding-top: 100px;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding-left: 40px;
+            padding-right: 40px;
             padding-bottom: 50px;
+            width: 100%;
         }
     </style>
 </head>
@@ -174,7 +183,7 @@
 
             <!-- Asosiy Kontent -->
             <div class="main-content">
-                <div class="container-fluid">
+                <div class="container-fluid" style="max-width: 100% !important;">
                     {% block content %}
                     {% endblock %}
                 </div>
