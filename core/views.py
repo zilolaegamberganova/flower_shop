@@ -5,15 +5,17 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from . import forms
 from . import services
-from products.filters import ProductFilter
+from products.filters import Product_Filter
 
 def home_page(request):
+
     products = Product.objects.all()
     categories = Category.objects.all()
     ctx = {
         'products': products,
         'categories': categories,
     }
+
     return render(request, 'dashboard/home.html', ctx)
 
 def login_required_decarator(func):
@@ -60,14 +62,17 @@ def login_page(request):
 
     return render(request, 'dashboard/login.html')
 
+@login_required_decarator
 def logout_page(request):
     logout(request)
     return redirect('login_page')
 
+@login_required_decarator
 def user_list(request):
     users = Customer.objects.all()
     return render(request, "dashboard/user/list.html", {'users': users})
 
+@login_required_decarator
 def user_create(request):
     model = Customer()
     form = forms.UserForm(request.POST or None, instance=model)
@@ -79,6 +84,7 @@ def user_create(request):
     ctx = {'model': model, 'form': form}
     return render(request, 'dashboard/user/form.html', ctx)
 
+@login_required_decarator
 def user_edit(request, pk):
     model = get_object_or_404(Customer, pk=pk)
     form = forms.UserForm(request.POST or None, instance=model)
@@ -90,15 +96,18 @@ def user_edit(request, pk):
     ctx = {'model': model, 'form': form}
     return render(request, 'dashboard/user/form.html', ctx)
 
+@login_required_decarator
 def user_delete(request, pk):
     model = get_object_or_404(Customer, pk=pk)
     model.delete()
     return redirect("user_list")
 
+@login_required_decarator
 def category_list(request):
     categories = Category.objects.all()
     return render(request, "dashboard/category/list.html", {'categories': categories})
 
+@login_required_decarator
 def category_create(request):
     model = Category()
     form = forms.CategoryForm(request.POST or None, instance=model)
@@ -110,6 +119,7 @@ def category_create(request):
     ctx = {'model': model, 'form': form}
     return render(request, 'dashboard/category/form.html', ctx)
 
+@login_required_decarator
 def category_edit(request, pk):
     model = get_object_or_404(Category, pk=pk)
     form = forms.CategoryForm(request.POST or None, instance=model)
@@ -121,16 +131,19 @@ def category_edit(request, pk):
     ctx = {'model': model, 'form': form}
     return render(request, 'dashboard/category/form.html', ctx)
 
+@login_required_decarator
 def category_delete(request, pk):
     model = get_object_or_404(Category, pk=pk)
     model.delete()
     return redirect("category_list")
 
+@login_required_decarator
 def product_list(request):
     products = Product.objects.all()
-    product_filter = ProductFilter(request.GET, queryset=products)
-    return render(request, "dashboard/product_list.html", {'products': products, 'filter': product_filter})
+    product_filter = Product_Filter(request.GET, queryset=products)
+    return render(request, "dashboard/product_list.html", {'products': products})
 
+@login_required_decarator
 def product_create(request):
     model = Product()
     form = forms.ProductForm(request.POST or None, request.FILES or None, instance=model)
@@ -142,6 +155,7 @@ def product_create(request):
     ctx = {'model': model, 'form': form}
     return render(request, 'dashboard/product_list.html', ctx)
 
+@login_required_decarator
 def product_edit(request, pk):
     model = get_object_or_404(Product, pk=pk)
     form = forms.ProductForm(request.POST or None, request.FILES or None, instance=model)
@@ -153,23 +167,28 @@ def product_edit(request, pk):
     ctx = {'model': model, 'form': form}
     return render(request, 'dashboard/product_list.html', ctx)
 
+@login_required_decarator
 def product_delete(request, pk):
     model = get_object_or_404(Product, pk=pk)
     model.delete()
     return redirect("product_list")
 
+@login_required_decarator
 def order_list(request):
     orders = Order.objects.all()
     return render(request, "dashboard/order/list.html", {'orders': orders})
 
+@login_required_decarator
 def customer_order_list(request, id):
     customer_orders = services.get_order_by_user(id=id) if hasattr(services, 'get_order_by_user') else []
     return render(request, "dashboard/customer_order/login.html", {'customer_orders': customer_orders})
 
+@login_required_decarator
 def orderproduct_list(request, id):
     productorders = services.get_product_by_order(id=id) if hasattr(services, 'get_product_by_order') else []
     return render(request, "dashboard/productorder/login.html", {'productorders': productorders})
 
+@login_required_decarator
 def order_create(request):
     form = forms.OrderForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
